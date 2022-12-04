@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Stroke Risk Questionnaire</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="stroke_form.css">
+    </head>
+    <body>
+        <form id="stroke-form-shell" action="stroke_form2.html" method="POST" onsubmit="return false">
+            <div class="stroke-form">
+                <div class="stroke-header">
+                    <h2  id="control-2553369">Stroke Risk Questionnaire</h2></div>
+                <div class="text-field-user-name">
+                    <label for="user-name" class="text-label">Name: </label>
+                    <input type="text" class="stroke-input" name="user-name"  id="user-name" required="required" aria-required="true">
+                </div>
+                <div class="number-field-age">
+                    <label for="age" class="number-label">Age: </label>
+                    <input type="number" class="stroke-input" name="age"  id="age" required="required" aria-required="true">
+                </div>
+                <div class="select-field-gender">
+                    <label for="gender" class="select-label">Biological Sex: </label>
+                    <select class="stroke-select-field" name="gender" id="gender">
+                        <option value="male" selected="true" id="gender-0">Male</option>
+                        <option value="female" id="gender-1">Female</option>
+                    </select>
+                </div>
+                <div class="select-field-marriage-status">
+                    <label for="marriage-status" class="select-label">Marriage Status: </label>
+                    <select class="stroke-select-field" name="marriage-status" id="marriage-status">
+                        <option disabled="null" selected="null">Single</option>
+                        <option value="single" id="marriage-status-0">Single</option>
+                        <option value="married" id="marriage-status-1">Married</option>
+                    </select>
+                </div>
+                <div class="select-field-work-type">
+                    <label for="work-type" class="select-label">Work Type: </label>
+                    <select class="stroke-select-field" name="work-type" id="work-type">
+                        <option disabled="null" selected="null">Private Sector</option>
+                        <option value="private" id="work-type-0">Private Company</option>
+                        <option value="federal" id="work-type-1">Federal Company</option>
+                        <option value="stay-at-home" id="work-type-2">Stay At Home</option>
+                        <option value="self-employed" id="work-type-3">Self Employed</option>
+                    </select>
+                </div>
+                <div class="select-field-residence-type">
+                    <label for="residence-type" class="select-label">Residence Type: </label>
+                    <select class="stroke-select-field" name="residence-type" id="residence-type">
+                        <option disabled="null" selected="null">Urban</option>
+                        <option value="urban" id="residence-type-0">Urban</option>
+                        <option value="rural" id="residence-type-1">Rural</option>
+                    </select>
+                </div>
+                <div class="select-field-hypertension">
+                    <label for="hypertension" class="select-label">Have you ever had hypertension?  </label>
+                    <select class="stroke-select-field" name="hypertension" id="hypertension">
+                        <option disabled="null" selected="null">No</option>
+                        <option value="no-hypertension" id="hypertension-0">No</option>
+                        <option value="yes-hypertension" id="hypertension-1">Yes</option>
+                    </select>
+                </div>
+                <div class="select-field-hypertension">
+                    <label for="hypertension" class="select-label"> Have you ever had a heart disease/condition? </label>
+                    <select class="stroke-select-field" name="hypertension" id="hypertension">
+                        <option disabled="null" selected="null">No</option>
+                        <option value="no-hypertension" id="hypertension-0">No</option>
+                        <option value="yes-hypertension" id="hypertension-1">Yes</option>
+                    </select>
+                </div>
+                <div class="select-field-smoke">
+                    <label for="smoke" class="select-label"> Have you ever smoked? If so, how often did/do you smoke? </label>
+                    <select class="stroke-select-field" name="smoke" id="smoke">
+                        <option disabled="null" selected="null">Never Smoked</option>
+                        <option value="smokes" id="smoke-0">Smokes</option>
+                        <option value="never-smoked" id="smoke-1">Never Smoked</option>
+                        <option value="formerly-smoked" id="smoke-2">Formerly Smoked</option>
+                        <option value="unknown-smoke" id="smoke-3">Can't Say</option>
+                    </select>
+                </div>
+                <div class="number-field-average-glucose-level">
+                    <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4322747/"> 
+                        <label title="Click here to See How to measure Glucose Level" for="average-glucose-level" class="number-label">Average Glucose Level: </label>
+                    </a>
+                    <input type="number" class="stroke-input" name="average-glucose-level"  id="average-glucose-level" required="required" aria-required="true">
+                </div>
+                <div class="number-field-bmi">
+                    <a href="https://tinyurl.com/ydzmjad8"> 
+                        <label title="Click here to See How to measure Body Mass Index" for="bmi" class="number-label">Body Mass Index: </label>
+                    </a>
+                    <input type="number" class="stroke-input" name="bmi"  id="bmi" required="required" aria-required="true">
+                </div>
+                <div class="stroke-form-buttons">
+                    <button type="button" class="submit-button" name="submit-button" id="submit-button">Get Results</button>
+                    <button type="button" class="reset-button" name="reset-button" id="reset-button">Reset Form</button>
+                </div>
+
+                <label for="answersContainer">Stroke Risk: </label>   
+                <div id="answersContainer" class="answersContainer">
+
+                </div>
+            </div>
+        </form>
+        <script src="stroke_form.js"></script>
+    </body>
+</html>
