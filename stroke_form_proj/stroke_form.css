@@ -1,0 +1,85 @@
+body, html {
+    height: 100vh;
+  }
+  
+  #stroke-form-div {
+    height: 100vh;
+    margin-left: 18%;
+    margin-right: 18%;
+  }
+
+  
+
+  #stroke-form-shell {
+    display: inline-block;
+}
+
+body {
+    text-align: center;
+}
+
+.stroke-form{}
+.stroke-header{}
+.text-field-user-name, .select-field-work-type, .select-field-residence-type,
+.number-field-age, .select-field-gender, .select-field-marriage-status,
+.select-field-hypertension, .select-field-smoke, .number-field-average-glucose-level,
+.number-field-bmi{ 
+    text-align: left;
+    border: 1px solid #000;
+    padding: 5px 2px 10px 10px;
+    font-weight: 400;
+}
+.text-label{}
+.stroke-input{}
+.number-label{}
+.select-label{}
+.stroke-select-field{}
+
+.stroke-form-buttons{}
+
+.submit-button{
+    background-color: #3d88dd;
+    border: none;
+    color: white;
+    padding: 5px 11px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 10%;
+    transition-duration: 0.1s;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #16bcf3;
+    color: white;
+}
+
+.reset-button {
+    background-color: rgb(170, 27, 27); /* Green */
+    border: none;
+    color: white;
+    padding: 5px 11px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 10%;
+    transition-duration: 0.1s;
+    cursor: pointer;
+}
+
+.reset-button:hover {
+    background-color: #f44336;
+    color: white;
+}
+
+#stroke-img{
+    width: 200px;
+    height: 130px;
+}
+
+#acl{
+    color: #fff;
+}

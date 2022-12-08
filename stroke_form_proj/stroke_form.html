@@ -4,13 +4,32 @@
         <title>Stroke Risk Questionnaire</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../styles.css">
         <link rel="stylesheet" href="stroke_form.css">
+        <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+        <script src="bundle.js"></script>
     </head>
     <body>
-        <form id="stroke-form-shell" action="stroke_form2.html" method="POST" onsubmit="return false">
-            <div class="stroke-form">
+        <nav class="navbar"> 
+            <ul class="navbar-items">
+               <div class="nav-button"><li class="navbar-items"><a href="../index.html">Home</a></li></div>
+               <div class="nav-button"> <li class="navbar-items"><a href="../jahleel_murray_resume_page.htm">Resume</a></li> </div>
+               <div class="nav-button"> <li class="dropdown">
+                  <a class="active" class="dropbtn" href="javascript:void(0)">Projects</a>
+                  <div class="dropdown-content">
+                     <a href="../tic_tac_toe_proj/tic_tac_toe.html">Tic-Tac-Teye Gazer</a>
+                     <a href="stroke_form_proj/stroke_form.html">Stroke Risk Predictor</a>
+                  </div>
+               </li></div>
+               <div class="nav-button"> <li class="navbar-items"><a href="../aboutme.html">About Me</a></li> </div>
+            </ul>
+         </nav> 
+        <form id="stroke-form-shell" action="stroke_form.html" method="POST" onsubmit="return false">
+            <div>
+            <div id="stroke-form-div" class="stroke-form">
                 <div class="stroke-header">
                     <h2  id="control-2553369">Stroke Risk Questionnaire</h2></div>
+                    <img id="stroke-img" src="https://www.brainandlife.org/siteassets/online-exclusives/covid-19/stroke-main.jpg">
                 <div class="text-field-user-name">
                     <label for="user-name" class="text-label">Name: </label>
                     <input type="text" class="stroke-input" name="user-name"  id="user-name" required="required" aria-required="true">
@@ -22,61 +41,55 @@
                 <div class="select-field-gender">
                     <label for="gender" class="select-label">Biological Sex: </label>
                     <select class="stroke-select-field" name="gender" id="gender">
-                        <option value="male" selected="true" id="gender-0">Male</option>
-                        <option value="female" id="gender-1">Female</option>
+                        <option value="Male" selected="true" id="gender-0">Male</option>
+                        <option value="Female" id="gender-1">Female</option>
                     </select>
                 </div>
                 <div class="select-field-marriage-status">
                     <label for="marriage-status" class="select-label">Marriage Status: </label>
                     <select class="stroke-select-field" name="marriage-status" id="marriage-status">
-                        <option disabled="null" selected="null">Single</option>
-                        <option value="single" id="marriage-status-0">Single</option>
-                        <option value="married" id="marriage-status-1">Married</option>
+                        <option value="No" id="marriage-status-0">Single</option>
+                        <option value="Yes" id="marriage-status-1">Married</option>
                     </select>
                 </div>
                 <div class="select-field-work-type">
                     <label for="work-type" class="select-label">Work Type: </label>
                     <select class="stroke-select-field" name="work-type" id="work-type">
-                        <option disabled="null" selected="null">Private Sector</option>
-                        <option value="private" id="work-type-0">Private Company</option>
-                        <option value="federal" id="work-type-1">Federal Company</option>
-                        <option value="stay-at-home" id="work-type-2">Stay At Home</option>
-                        <option value="self-employed" id="work-type-3">Self Employed</option>
+                        <option value="Private" id="work-type-0">Private Company</option>
+                        <option value="Govt_job" id="work-type-1">Federal Company</option>
+                        <option value="children" id="work-type-2">Stay At Home</option>
+                        <option value="Self-employed" id="work-type-3">Self Employed</option>
                     </select>
                 </div>
                 <div class="select-field-residence-type">
                     <label for="residence-type" class="select-label">Residence Type: </label>
                     <select class="stroke-select-field" name="residence-type" id="residence-type">
-                        <option disabled="null" selected="null">Urban</option>
-                        <option value="urban" id="residence-type-0">Urban</option>
-                        <option value="rural" id="residence-type-1">Rural</option>
+                        <option value="Urban" id="residence-type-0">Urban</option>
+                        <option value="Rural" id="residence-type-1">Rural</option>
                     </select>
                 </div>
                 <div class="select-field-hypertension">
                     <label for="hypertension" class="select-label">Have you ever had hypertension?  </label>
                     <select class="stroke-select-field" name="hypertension" id="hypertension">
-                        <option disabled="null" selected="null">No</option>
-                        <option value="no-hypertension" id="hypertension-0">No</option>
-                        <option value="yes-hypertension" id="hypertension-1">Yes</option>
+                        <option value=0 id="hypertension-0">No</option>
+                        <option value=1 id="hypertension-1">Yes</option>
                     </select>
                 </div>
                 <div class="select-field-hypertension">
-                    <label for="hypertension" class="select-label"> Have you ever had a heart disease/condition? </label>
-                    <select class="stroke-select-field" name="hypertension" id="hypertension">
-                        <option disabled="null" selected="null">No</option>
-                        <option value="no-hypertension" id="hypertension-0">No</option>
-                        <option value="yes-hypertension" id="hypertension-1">Yes</option>
+                    <label for="heart-disease" class="select-label"> Have you ever had a heart disease/condition? </label>
+                    <select class="stroke-select-field" name="heart-disease" id="heart-disease">
+                        <option value=0 id="heart-disease-0">No</option>
+                        <option value=1 id="heart-disease-1">Yes</option>
                     </select>
                 </div>
                 <div class="select-field-smoke">
                     <label for="smoke" class="select-label"> Have you ever smoked? If so, how often did/do you smoke? </label>
                     <select class="stroke-select-field" name="smoke" id="smoke">
-                        <option disabled="null" selected="null">Never Smoked</option>
                         <option value="smokes" id="smoke-0">Smokes</option>
-                        <option value="never-smoked" id="smoke-1">Never Smoked</option>
-                        <option value="formerly-smoked" id="smoke-2">Formerly Smoked</option>
-                        <option value="unknown-smoke" id="smoke-3">Can't Say</option>
-                    </select>
+                        <option value="never smoked" id="smoke-1">Never Smoked</option>
+                        <option value="formerly smoked" id="smoke-2">Formerly Smoked</option>
+                        <!-- <option value="unknown-smoke" id="smoke-3">Can't Say</option> -->
+                    </select> 
                 </div>
                 <div class="number-field-average-glucose-level">
                     <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4322747/"> 
@@ -91,16 +104,17 @@
                     <input type="number" class="stroke-input" name="bmi"  id="bmi" required="required" aria-required="true">
                 </div>
                 <div class="stroke-form-buttons">
-                    <button type="button" class="submit-button" name="submit-button" id="submit-button">Get Results</button>
+                    <button type="button" onclick="collectData()" class="submit-button" name="submit-button" id="submit-button">Get Results</button>
                     <button type="button" class="reset-button" name="reset-button" id="reset-button">Reset Form</button>
                 </div>
 
-                <label for="answersContainer">Stroke Risk: </label>   
+                <label id="acl" for="answersContainer">Stroke Risk: </label>   
                 <div id="answersContainer" class="answersContainer">
-
+                    <p>A Stroke is a very serious condition. When a blood vessel that supplies the brain with oxygen and nutrients becomes blocked  by a clot or breaks, a stroke ensues. A portion of the brain dies when it is deprived of the blood (and oxygen) it needs.  However,&#160;stroke prevention is possible in 80% of cases.</p>
                 </div>
             </div>
+            </div>
         </form>
-        <script src="stroke_form.js"></script>
+       <!-- <script src="stroke_form.js"></script> --> 
     </body>
 </html>
