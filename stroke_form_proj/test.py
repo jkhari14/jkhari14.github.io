@@ -1,5 +1,4 @@
 import sys
-import json
 import ast  # abstract syntax tree
 import json;
 import pandas as pd;
@@ -20,6 +19,7 @@ from sklearn import tree
 from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score   
 import os
+from bs4 import BeautifulSoup
 from sklearn import preprocessing
 label_encoder = preprocessing.LabelEncoder()
 from joblib import Parallel, delayed
