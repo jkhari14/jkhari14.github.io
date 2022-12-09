@@ -1,30 +1,22 @@
+print(5 + 5)
+
 import sys
 import ast  # abstract syntax tree
 import json;
+
 import pandas as pd;
-import scipy;
-from scipy import stats as st;
-import matplotlib.pyplot as plt;
 import numpy as np;
-import sklearn
-from sklearn.datasets import load_iris
-from sklearn import tree
-from sklearn.model_selection import train_test_split
-from sklearn.model_selection import GridSearchCV
-from sklearn.linear_model import LogisticRegression
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.ensemble import BaggingClassifier
-from sklearn.ensemble import VotingClassifier
-from sklearn import tree
-from sklearn.metrics import precision_score
-from sklearn.metrics import recall_score   
 import os
+
 from bs4 import BeautifulSoup
-from sklearn import preprocessing
-label_encoder = preprocessing.LabelEncoder()
-from joblib import Parallel, delayed
+#from joblib import Parallel, delayed
 import joblib
 
+from js import document
+from pyodide.http import open_url
+
+
+'''
 input_data = ast.literal_eval(sys.argv[1]) # accept dictionary
 
 element_vals = input_data['evs']
@@ -60,16 +52,16 @@ else:
     answer = f"Hi {user_name}, According to our Machine Learning model you appear to not be at Risk for having a stroke with chances as low as 0.46% of getting one."
 
 #  list
-'''
-input_data = ast.literal_eval(sys.argv[1])
-output = input_data
-output.append(data_to_pass_back)
-print(json.dumps(output))
-'''
+#input_data = ast.literal_eval(sys.argv[1])
+#output = input_data
+#output.append(data_to_pass_back)
+#print(json.dumps(output))
 
 
 output = input_data #set output to dictionary
 output['data_returned'] = answer
 # print(json.dumps(output)) # print output
 sys.stdout.flush()  # executes all the collected data on the terminal w/ appropriate commands
+
+'''
 
