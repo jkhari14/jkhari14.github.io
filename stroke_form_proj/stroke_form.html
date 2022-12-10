@@ -7,9 +7,10 @@
         <link rel="stylesheet" href="../styles.css">
         <link rel="stylesheet" href="stroke_form.css">
         <script defer src="https://pyscript.net/latest/pyscript.js"></script>
-        <script src="bundle.js"></script>
     </head>
+    
     <body>
+                <!--<py-script src="./test.py"></py-script> -->
         <nav class="navbar"> 
             <ul class="navbar-items">
                <div class="nav-button"><li class="navbar-items"><a href="../index.html">Home</a></li></div>
@@ -104,7 +105,7 @@
                     <input type="number" class="stroke-input" name="bmi"  id="bmi" required="required" aria-required="true">
                 </div>
                 <div class="stroke-form-buttons">
-                    <button type="button" onclick="collectData()" class="submit-button" name="submit-button" id="submit-button">Get Results</button>
+                    <button type="button" class="submit-button" name="submit-button" id="submit-button">Get Results</button>
                     <button type="button" class="reset-button" name="reset-button" id="reset-button">Reset Form</button>
                 </div>
 
@@ -112,9 +113,61 @@
                 <div id="answersContainer" class="answersContainer">
                     <p>A Stroke is a very serious condition. When a blood vessel that supplies the brain with oxygen and nutrients becomes blocked  by a clot or breaks, a stroke ensues. A portion of the brain dies when it is deprived of the blood (and oxygen) it needs.  However,&#160;stroke prevention is possible in 80% of cases.</p>
                 </div>
+                <div id="output_div" style="margin-top: 10px;margin-bottom: 10px;"></div>
             </div>
             </div>
         </form>
+        <py-env>
+            - numpy  
+            - pandas
+            - joblib
+            - BeautifulSoup4
+            - pyodide.http
+            - scikit-learn
+        </py-env> 
+        <py-script>
+        from js import document 
+        from pyodide.ffi import create_proxy
+        import pandas as pd;
+        import numpy as np;
+        import joblib
+        from sklearn import preprocessing 
+        label_encoder = preprocessing.LabelEncoder
+        import os
+        
+        def runPython(self):
+            element_vals = [] 
+            element_ids = ["user-name", "gender", "age", "hypertension", "heart-disease", "marriage-status", "work-type", "residence-type", "average-glucose-level", "bmi", "smoke"]
+            for i in range(len(element_ids)):
+                input_obj = document.getElementById(element_ids[i])
+                element_vals.append(input_obj.value)
+                user_name = element_vals[0]        
+            df_d = {}
+            for i in range(1, len(element_vals)):
+                df_d[element_ids[i]] = [element_vals[i]]
+            df_clean = pd.DataFrame(data=df_d)
+            df_clean['gender'] = label_encoder().fit_transform(df_clean['gender'])
+            df_clean['gender'].unique()
+            df_clean['marriage-status'] = label_encoder().fit_transform(df_clean['marriage-status'])
+            df_clean['marriage-status'].unique()
+            df_clean_ohe = pd.get_dummies(data=df_clean, columns=['work-type', 'residence-type', 'smoke'])
+            X = df_clean_ohe.values
+            verdict = []
+            for i in range(40):
+                # Load the model from the file
+                stroke_pickle = joblib.load(f'stroke_model_pickles/stroke_model{i}.pkl')
+                # Use the loaded model to make predictions
+                verdict.append(stroke_pickle.predict(X))
+            if np.mean(verdict) > 0.667:
+                answer = f"Hi {user_name}, According to our Machine Learning model you appear to be at Substantial Risk for having a stroke, over 6% of those with similar criteria to yours have suffered from one according to our database."
+            else:
+                answer = f"Hi {user_name}, According to our Machine Learning model you appear to not be at Risk for having a stroke with chances as low as 0.46% of getting one."
+            document.getElementById("output_div").innerText = answer
+        
+        function_proxy = create_proxy(runPython)
+        
+        document.getElementById("submit-button").addEventListener("click", function_proxy)
+        </py-script>
        <!-- <script src="stroke_form.js"></script> --> 
     </body>
 </html>
