@@ -1,10 +1,10 @@
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', () => { //makes sure html doc fully loaded before doing anything
     const tiles = Array.from(document.querySelectorAll('.tile'));
     const playerDisplay = document.querySelector('.display-player');
     const resetButton = document.querySelector('#reset');
     const announcer = document.querySelector('.announcer');
 
-    let board = ['', '', '', '', '', '', '', '', ''];
+    let board = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''];
     let currentPlayer = 'X';
     let isGameActive = true;
 
@@ -15,43 +15,47 @@ window.addEventListener('DOMContentLoaded', () => {
 
     /*
         Indexes within the board
-        [0] [1] [2]
-        [3] [4] [5]
-        [6] [7] [8]
+        [0] [1] [2] [3]
+        [4] [5] [6] [7]
+        [8] [9] [10] [11]
+        [12] [13] [14] [15]
     */
 
-    const winningConditions = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6]
+    let winningConditions = [
+        [0, 1, 2, 3],
+        [4, 5, 6, 7],
+        [6, 7, 8, 9],
+        [12, 13, 14, 15],
+        [0, 5, 10, 15],
+        [3, 6, 9, 12],
+        [1, 5, 9, 13],
+        [2, 6, 10, 14],
+        [0, 4, 8, 12],
+        [3, 7, 11, 15]
     ];
 
     function handleResultValidation() {
         let roundWon = false;
-        for (let i = 0; i <= 7; i++) {
-            const winCondition = winningConditions[i];
+        for (let i=0;i<10;i++) {
+            let winCondition = winningConditions[i];
             const a = board[winCondition[0]];
             const b = board[winCondition[1]];
             const c = board[winCondition[2]];
-            if (a === '' || b === '' || c === '') {
+            const d = board[winCondition[3]];
+            if (a === '' || b === '' || c === '' || d === '') {
                 continue;
             }
-            if (a === b && b === c) {
+            if (a === b && b === c && c === d) {
                 roundWon = true;
                 break;
             }
         }
 
-    if (roundWon) {
-            announce(currentPlayer === 'X' ? PLAYERX_WON : PLAYERO_WON);
-            isGameActive = false;
-            return;
-        }
+        if (roundWon) {
+                announce(currentPlayer === 'X' ? PLAYERX_WON : PLAYERO_WON);
+                isGameActive = false;
+                return;
+            }
 
     if (!board.includes(''))
         announce(TIE);
@@ -60,13 +64,13 @@ window.addEventListener('DOMContentLoaded', () => {
     const announce = (type) => {
         switch(type){
             case PLAYERO_WON:
-                announcer.innerHTML = 'Player <span class="playerO">O</span> Won';
+                announcer.innerHTML = '<span class="playerO">O</span> Won!';
                 break;
             case PLAYERX_WON:
-                announcer.innerHTML = 'Player <span class="playerX">X</span> Won';
+                announcer.innerHTML = '<span class="playerX">X</span> Won!';
                 break;
             case TIE:
-                announcer.innerText = 'Tie';
+                announcer.innerText = 'SCRATCH >:)';
         }
         announcer.classList.remove('hide');
     };
@@ -101,7 +105,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     
     const resetBoard = () => {
-        board = ['', '', '', '', '', '', '', '', ''];
+        board = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''];
         isGameActive = true;
         announcer.classList.add('hide');
 

@@ -5,7 +5,7 @@
 }
 
 .background {
-    background-color: #12181B;
+    background-color: #0070aa;
     height: 100vh;
     padding-top: 1px;
 }
@@ -18,13 +18,19 @@
 }
 
 .display {
-    color: white;
+    color: #fff;
     font-size: 25px;
     text-align: center;
     margin-top: 1em;
     margin-bottom: 1em;
 }
+#display-announcer-hide{
+    color: #0070aa;
+}
 
+h1 .ttt{
+    color: #fff;
+}
 .hide {
     display: none;
 }
@@ -32,14 +38,15 @@
 .container {
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 33% 33% 33%;
-    grid-template-rows: 33% 33% 33%;
-    max-width: 300px;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 25% 25% 25% 25%;
+    max-width: 400px;
+    background-color: #0070aa;
 
 }
 
 .tile {
-    border: 1px solid white;
+    border: 1px solid #f8f5f5;
     min-width: 100px;
     min-height: 100px;
     display: flex;
@@ -50,11 +57,11 @@
 }
 
 .playerX {
-    color: #09C372;
+    color: red;
 }
 
 .playerO {
-    color: #498AFB;
+    color: #40da21;
 }
 
 .controls {
@@ -63,6 +70,7 @@
     justify-content: center;
     align-items: center;
     margin-top: 1em;
+    background-color: #0070aa;
 }
 
 .controls button {
