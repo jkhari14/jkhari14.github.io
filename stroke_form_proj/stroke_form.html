@@ -162,8 +162,10 @@
                 # Use the loaded model to make predictions
                 verdict.append(stroke_pickle.predict(X))
             if np.mean(verdict) > 0.667:
+                document.getElementById("output_div").color = "red"
                 answer = f"Hi {user_name}, According to our Machine Learning model you appear to be at Substantial Risk for having a stroke, over 6% of those with similar criteria to yours have suffered from one according to our database."
             else:
+                document.getElementById("output_div").color = "green"
                 answer = f"Hi {user_name}, According to our Machine Learning model you appear to not be at Risk for having a stroke with chances as low as 0.46% of getting one."
             document.getElementById("output_div").innerText = answer
         
