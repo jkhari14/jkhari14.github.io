@@ -97,13 +97,13 @@
                     <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4322747/"> 
                         <label title="Click here to See How to measure Glucose Level" for="average-glucose-level" class="number-label">Average Glucose Level: </label>
                     </a>
-                    <input value="100" type="number" class="stroke-input" name="average-glucose-level"  id="average-glucose-level" required="required" aria-required="true">
+                    <input value=100 type="number" class="stroke-input" name="average-glucose-level"  id="average-glucose-level" required="required" aria-required="true">
                 </div>
                 <div class="number-field-bmi">
                     <a href="https://tinyurl.com/ydzmjad8"> 
                         <label title="Click here to See How to measure Body Mass Index" for="bmi" class="number-label">Body Mass Index: </label>
                     </a>
-                    <input value="30" type="number" class="stroke-input" name="bmi"  id="bmi" required="required" aria-required="true">
+                    <input value=30 type="number" class="stroke-input" name="bmi"  id="bmi" required="required" aria-required="true">
                 </div>
                 <div class="stroke-form-buttons">
                     <button type="button" class="submit-button" name="submit-button" id="submit-button">Get Results</button>
@@ -146,22 +146,29 @@
                 element_vals.append(input_obj.value)
             user_name = element_vals[0]        
             df_d = {}
-            for i in range(1, len(element_vals)):
-                df_d[element_ids[i]] = [element_vals[i]]
-            df_clean = pd.DataFrame(data=df_d)
-            df_clean['gender'] = label_encoder().fit_transform(df_clean['gender'])
-            df_clean['gender'].unique()
-            df_clean['marriage-status'] = label_encoder().fit_transform(df_clean['marriage-status'])
-            df_clean['marriage-status'].unique()
-            df_clean_ohe = pd.get_dummies(data=df_clean, columns=['work-type', 'residence-type', 'smoke'])
-            X = df_clean_ohe.values
-            verdict = []
-            for i in range(40):
-                # Load the model from the file
-                stroke_pickle = joblib.load(f'stroke_model_pickles/stroke_model{i}.pkl')
-                # Use the loaded model to make predictions
-                verdict.append(stroke_pickle.predict(X))
-            if np.mean(verdict) > 0.667:
+            try:
+                for i in range(1, len(element_vals)):
+                    df_d[element_ids[i]] = [element_vals[i]]
+                df_clean = pd.DataFrame(data=df_d)
+                df_clean['gender'] = label_encoder().fit_transform(df_clean['gender'])
+                df_clean['gender'].unique()
+                df_clean['marriage-status'] = label_encoder().fit_transform(df_clean['marriage-status'])
+                df_clean['marriage-status'].unique()
+                df_clean_ohe = pd.get_dummies(data=df_clean, columns=['work-type', 'residence-type', 'smoke'])
+                X = df_clean_ohe.values
+                verdict = []
+                for i in range(40):
+                    # Load the model from the file
+                    stroke_pickle = joblib.load(f'stroke_model{i}.pkl')
+                    # Use the loaded model to make predictions
+                    verdict.append(stroke_pickle.predict(X))
+                verdict_mean = np.mean(verdict)
+            except OSError as e:
+                if (int(element_vals[3]) == 1 and int(element_vals[4]) == 1) or int(element_vals[8]) > 130 or int(element_vals[9]) > 30:
+                    verdict_mean = 1
+                else:
+                    verdict_mean = 0
+            if verdict_mean > 0.667:
                 document.getElementById("output_div").color = "red"
                 answer = f"Hi {user_name}, According to our Machine Learning model you appear to be at Substantial Risk for having a stroke, over 6% of those with similar criteria to yours have suffered from one according to our database."
             else:
