@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="../styles.css">
         <link rel="stylesheet" href="stroke_form.css">
         <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+        
     </head>
     
     <body>
@@ -119,69 +120,7 @@
             </div>
             </div>
         </form>
-        <py-env>
-            - numpy  
-            - pandas
-            - joblib
-            - BeautifulSoup4
-            - pyodide.http
-            - scikit-learn
-        </py-env> 
-        <py-script>
-        from js import document, console
-        from pyodide.ffi import create_proxy
-        import pandas as pd;
-        import numpy as np;
-        import joblib
-        from sklearn import preprocessing 
-        label_encoder = preprocessing.LabelEncoder
-        import os
         
-        def runPython(self):
-            element_vals = [] 
-            element_ids = ["user-name", "gender", "age", "hypertension", "heart-disease", "marriage-status", "work-type", "residence-type", "average-glucose-level", "bmi", "smoke"]
-            for i in range(len(element_ids)):
-                input_obj = document.getElementById(element_ids[i])
-                if input_obj.value == '' or input_obj.value == None:
-                    console.log('Please fill out all the Forms to get your results.')
-                    return
-                element_vals.append(input_obj.value)
-            user_name = element_vals[0]        
-            df_d = {}
-            try:
-                for i in range(1, len(element_vals)):
-                    df_d[element_ids[i]] = [element_vals[i]]
-                df_clean = pd.DataFrame(data=df_d)
-                df_clean['gender'] = label_encoder().fit_transform(df_clean['gender'])
-                df_clean['gender'].unique()
-                df_clean['marriage-status'] = label_encoder().fit_transform(df_clean['marriage-status'])
-                df_clean['marriage-status'].unique()
-                df_clean_ohe = pd.get_dummies(data=df_clean, columns=['work-type', 'residence-type', 'smoke'])
-                X = df_clean_ohe.values
-                verdict = []
-                for i in range(40):
-                    # Load the model from the file
-                    stroke_pickle = joblib.load(f'stroke_model{i}.pkl')
-                    # Use the loaded model to make predictions
-                    verdict.append(stroke_pickle.predict(X))
-                verdict_mean = np.mean(verdict)
-            except OSError as e:
-                if (int(element_vals[3]) == 1 and int(element_vals[4]) == 1) or int(element_vals[8]) > 130 or int(element_vals[9]) > 30:
-                    verdict_mean = 1
-                else:
-                    verdict_mean = 0
-            if verdict_mean > 0.667:
-                document.getElementById("output_div").color = "red"
-                answer = f"Hi {user_name}, According to our Machine Learning model you appear to be at Substantial Risk for having a stroke, over 6% of those with similar criteria to yours have suffered from one according to our database."
-            else:
-                document.getElementById("output_div").color = "green"
-                answer = f"Hi {user_name}, According to our Machine Learning model you appear to not be at Risk for having a stroke with chances as low as 0.46% of getting one."
-            document.getElementById("output_div").innerText = answer
-        
-        function_proxy = create_proxy(runPython)
-        
-        document.getElementById("submit-button").addEventListener("click", function_proxy)
-        </py-script>
        <!-- <script src="stroke_form.js"></script> --> 
        <br>
        <br>
@@ -197,5 +136,67 @@
        <br>
        <h3 color="#0070aa">See Times for a Consultation with a Specialist Below for FREE!</h3>
        <iframe src="https://calendar.google.com/calendar/embed?src=c_29e8ab6548d0d0713a0c67735638c229037cce60cec9fe61a0d4ecf148ac7a9d%40group.calendar.google.com&ctz=America%2FChicago" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+        <div style="color:white">
+            <py-config type="json">
+                {
+                  "packages": ["numpy", "pandas", "joblib", "scikit-learn", "BeautifulSoup4", "pyodide.http"]
+                }
+            </py-config>
+            <py-script>
+            from js import document, console
+            from pyodide.ffi import create_proxy
+            import pandas as pd;
+            import numpy as np;
+            import joblib
+            from sklearn import preprocessing 
+            label_encoder = preprocessing.LabelEncoder
+            import os
+            
+            def runPython(self):
+                element_vals = [] 
+                element_ids = ["user-name", "gender", "age", "hypertension", "heart-disease", "marriage-status", "work-type", "residence-type", "average-glucose-level", "bmi", "smoke"]
+                for i in range(len(element_ids)):
+                    input_obj = document.getElementById(element_ids[i])
+                    if input_obj.value == '' or input_obj.value == None:
+                        console.log('Please fill out all the Forms to get your results.')
+                        return
+                    element_vals.append(input_obj.value)
+                user_name = element_vals[0]        
+                df_d = {}
+                try:
+                    for i in range(1, len(element_vals)):
+                        df_d[element_ids[i]] = [element_vals[i]]
+                    df_clean = pd.DataFrame(data=df_d)
+                    df_clean['gender'] = label_encoder().fit_transform(df_clean['gender'])
+                    df_clean['gender'].unique()
+                    df_clean['marriage-status'] = label_encoder().fit_transform(df_clean['marriage-status'])
+                    df_clean['marriage-status'].unique()
+                    df_clean_ohe = pd.get_dummies(data=df_clean, columns=['work-type', 'residence-type', 'smoke'])
+                    X = df_clean_ohe.values
+                    verdict = []
+                    for i in range(40):
+                        # Load the model from the file
+                        stroke_pickle = joblib.load(f'stroke_model{i}.pkl')
+                        # Use the loaded model to make predictions
+                        verdict.append(stroke_pickle.predict(X))
+                    verdict_mean = np.mean(verdict)
+                except OSError as e:
+                    if (int(element_vals[3]) == 1 and int(element_vals[4]) == 1) or int(element_vals[8]) > 130 or int(element_vals[9]) > 30:
+                        verdict_mean = 1
+                    else:
+                        verdict_mean = 0
+                if verdict_mean > 0.667:
+                    document.getElementById("output_div").color = "red"
+                    answer = f"Hi {user_name}, According to our Machine Learning model you appear to be at Substantial Risk for having a stroke, over 6% of those with similar criteria to yours have suffered from one according to our database."
+                else:
+                    document.getElementById("output_div").color = "green"
+                    answer = f"Hi {user_name}, According to our Machine Learning model you appear to not be at Risk for having a stroke with chances as low as 0.46% of getting one."
+                document.getElementById("output_div").innerText = answer
+            
+            function_proxy = create_proxy(runPython)
+            
+            document.getElementById("submit-button").addEventListener("click", function_proxy)
+            </py-script>
+        </div>
     </body>
 </html>
